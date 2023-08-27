@@ -1,4 +1,4 @@
 # PERSONAL_CertificadosDiplomas
-Proyecto de Certificados y Diplomas 
+Proyecto de Certificados y Diplomas
 
-AnderCode
+PHP Y MYSQL
