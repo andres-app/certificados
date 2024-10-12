@@ -26,28 +26,28 @@
           <a href="../AdminMntUsuario/" class="br-menu-link">
             <div class="br-menu-item">
               <i class="menu-item-icon icon ion-ios-bookmarks-outline tx-24"></i>
-              <span class="menu-item-label">Mnt. Usuario</span>
+              <span class="menu-item-label">Usuarios</span>
             </div>
           </a>
 
           <a href="../AdminMntCurso/" class="br-menu-link">
             <div class="br-menu-item">
               <i class="menu-item-icon icon ion-ios-bookmarks-outline tx-24"></i>
-              <span class="menu-item-label">Mnt. Curso</span>
+              <span class="menu-item-label">Cursos</span>
             </div>
           </a>
 
           <a href="../AdminMntInstructor/" class="br-menu-link">
             <div class="br-menu-item">
               <i class="menu-item-icon icon ion-ios-bookmarks-outline tx-24"></i>
-              <span class="menu-item-label">Mnt. Instructor</span>
+              <span class="menu-item-label">Instructores</span>
             </div>
           </a>
 
           <a href="../AdminMntCategoria/" class="br-menu-link">
             <div class="br-menu-item">
               <i class="menu-item-icon icon ion-ios-bookmarks-outline tx-24"></i>
-              <span class="menu-item-label">Mnt. Categoria</span>
+              <span class="menu-item-label">Categoria de cursos</span>
             </div>
           </a>
           

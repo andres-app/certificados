@@ -24,7 +24,7 @@ $(document).ready(function(){
         ctx.fillText(data.usu_nom+' '+ data.usu_apep+' '+data.usu_apem, x, 250);
 
         ctx.font = '30px Arial';
-        ctx.fillText(data.cur_nom, x, 320);
+        ctx.fillText(data.cur_nom, x, 380);
 
         ctx.font = '18px Arial';
         ctx.fillText(data.inst_nom+' '+ data.inst_apep+' '+data.inst_apem, x, 420);

@@ -21,8 +21,8 @@ if (isset($_SESSION["usu_id"])) {
         </nav>
       </div>
       <div class="pd-x-20 pd-sm-x-30 pd-t-20 pd-sm-t-30">
-        <h4 class="tx-gray-800 mg-b-5">Inicio</h4>
-        <p class="mg-b-0">Dashboard</p>
+        <h4 class="tx-gray-800 mg-b-5">Dashboard</h4>
+        <p class="mg-b-0">Ultimos cursos</p>
       </div>
       <!-- Contenido del proyecto -->
       <div class="br-pagebody mg-t-5 pd-x-30">
