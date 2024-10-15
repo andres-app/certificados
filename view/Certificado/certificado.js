@@ -10,37 +10,40 @@ $(document).ready(function(){
 
     $.post("../../controller/usuario.php?op=mostrar_curso_detalle", { curd_id : curd_id }, function (data) {
         data = JSON.parse(data);
-
-        /* Ruta de la Imagen */
+        
+        // Verifica si total_horas está presente
+        console.log(data);
+    
+        /* Luego de verificar, continúa con el código de generación del certificado */
         image.src = data.cur_img;
-        /* Dimensionamos y seleccionamos imagen */
         ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
-
-        /* Definimos tamaño de la fuente */
+    
         ctx.font = '40px Arial';
         ctx.textAlign = "center";
         ctx.textBaseline = 'middle';
         var x = canvas.width / 2;
-        ctx.fillText(data.usu_nom+' '+ data.usu_apep+' '+data.usu_apem, x, 250);
-
+        ctx.fillText(data.usu_nom + ' ' + data.usu_apep + ' ' + data.usu_apem, x, 270);
+    
         ctx.font = '30px Arial';
         ctx.fillText(data.cur_nom, x, 380);
-
-        ctx.font = '18px Arial';
-        ctx.fillText(data.inst_nom+' '+ data.inst_apep+' '+data.inst_apem, x, 420);
+    
+        // ctx.font = '18px Arial';
+        // ctx.fillText(data.inst_nom + ' ' + data.inst_apep + ' ' + data.inst_apem, x, 420);
+        // ctx.font = '15px Arial';
+        // ctx.fillText('Instructor', x, 450);
+    
         ctx.font = '15px Arial';
-        ctx.fillText('Instructor', x, 450);
-
+        ctx.fillText('Desde el: ' + data.cur_fechini + ' / ' + 'Hasta el: ' + data.cur_fechfin, x, 490);
+    
+        // Agregar horas del curso
         ctx.font = '15px Arial';
-        ctx.fillText('Fecha de Inicio : '+data.cur_fechini+' / '+'Fecha de Finalización : '+data.cur_fechfin+'', x, 490);
-
-        /* Ruta de la Imagen */
-        imageqr.src = "../../public/qr/"+curd_id+".png";
-        /* Dimensionamos y seleccionamos imagen */
+        ctx.fillText('Total de horas: ' + data.total_horas, x, 450);
+    
+        imageqr.src = "../../public/qr/" + curd_id + ".png";
         ctx.drawImage(imageqr, 400, 500, 100, 100);
-
+    
         $('#cur_descrip').html(data.cur_descrip);
-    });
+    });    
 
 });
 
