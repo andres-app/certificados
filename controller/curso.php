@@ -95,16 +95,19 @@
             case "generar_qr":
                 require 'phpqrcode/qrlib.php';
                 
-                // Opción 1: Eliminar el archivo QR si existe (asegurarse de generar uno nuevo siempre)
+                // Eliminar el archivo QR si existe (asegurarse de generar uno nuevo siempre)
                 $qr_file = "../public/qr/".$_POST["curd_id"].".png";
                 if (file_exists($qr_file)) {
-                    unlink($qr_file); // Elimina el archivo anterior
+                    unlink($qr_file); // Elimina el archivo anterior si ya existe
                 }
             
-                // Opción 2: Generar un nuevo QR con la URL dinámica, usando la ruta detectada
-                $qr_url = Conectar::ruta() . "view/Certificado/index.php?curd_id=" . $_POST["curd_id"];
+                // Forzar que siempre use la URL de producción para el QR
+                $qr_url = "https://peruaprende.com/certificados/view/Certificado/index.php?curd_id=" . $_POST["curd_id"];
+                
+                // Generar el nuevo QR con la URL de producción
                 QRcode::png($qr_url, $qr_file, 'L', 32, 5); // Genera el nuevo QR con la URL correcta
-                break;         
+                break;
+                   
             
 
         case "update_imagen_curso":
