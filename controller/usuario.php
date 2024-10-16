@@ -33,6 +33,16 @@ switch ($_GET["op"]) {
 
         break;
 
+    case "total_usuarios":
+        $datos = $usuario->get_total_usuarios(); // Supongamos que tienes una función que cuenta los usuarios
+        if (is_array($datos) == true && count($datos) > 0) {
+            foreach ($datos as $row) {
+                $output["total"] = $row["total"];
+            }
+            echo json_encode($output);
+        }
+        break;
+
     /*TODO: MicroServicio para poder mostrar el listado de últimos certificados emitidos por todos los usuarios para el admin */
     case "listar_certificados_admin":
         $datos = $usuario->get_certificados_todos_usuarios();

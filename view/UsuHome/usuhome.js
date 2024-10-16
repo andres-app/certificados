@@ -1,13 +1,23 @@
 var usu_id = $('#usu_idx').val();
-var rol_id = $('#rol_idx').val(); // Obtener el rol del usuario
+var rol_id = $('#rol_idx').val();  // Obtén el rol del usuario
 
 $(document).ready(function(){
 
-    // Solicitud para mostrar el total de cursos
-    $.post("../../controller/usuario.php?op=total", { usu_id : usu_id }, function (data) {
-        data = JSON.parse(data);
-        $('#lbltotal').html(data.total);
-    });
+    // Si es administrador, obten el total de usuarios
+    if (rol_id == 2) {  // Suponiendo que 2 es el rol de administrador
+        $.post("../../controller/usuario.php?op=total_usuarios", function (data) {
+            data = JSON.parse(data);
+            $('#lbltotalusuarios').html(data.total);
+        });
+    }
+
+    // Si es un usuario regular, obten el total de cursos
+    if (rol_id == 1) {  // Suponiendo que 1 es el rol de usuario
+        $.post("../../controller/usuario.php?op=total", { usu_id : usu_id }, function (data) {
+            data = JSON.parse(data);
+            $('#lbltotal').html(data.total);
+        });
+    }
 
     // Verificación del rol para definir el comportamiento
     if (rol_id == 2) { // Si es administrador

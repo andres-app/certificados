@@ -96,7 +96,16 @@ class Usuario extends Conectar
         $sql->execute();
         return $sql->fetchAll();
     }
-    
+
+    public function get_total_usuarios()
+    {
+        $conectar = parent::conexion();
+        parent::set_names();
+        $sql = "SELECT COUNT(*) as total FROM tm_usuario WHERE est = 1"; // Asumiendo que 'est' 1 significa activo
+        $sql = $conectar->prepare($sql);
+        $sql->execute();
+        return $sql->fetchAll();
+    }
 
 
     /*TODO: Mostrar todos los cursos en los cuales esta inscrito un usuario */
