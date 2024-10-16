@@ -33,6 +33,30 @@ switch ($_GET["op"]) {
 
         break;
 
+    /*TODO: MicroServicio para poder mostrar el listado de últimos certificados emitidos por todos los usuarios para el admin */
+    case "listar_certificados_admin":
+        $datos = $usuario->get_certificados_todos_usuarios();
+        $data = array();
+        foreach ($datos as $row) {
+            $sub_array = array();
+            $sub_array[] = $row["cur_nom"];
+            $sub_array[] = $row["cur_fechini"];
+            $sub_array[] = $row["cur_fechfin"];
+            $sub_array[] = $row["inst_nom"] . " " . $row["inst_apep"];  // Nombre del instructor
+            $sub_array[] = '<button type="button" onClick="certificado(' . $row["curd_id"] . ');" id="' . $row["curd_id"] . '" class="btn btn-outline-primary btn-icon"><div><i class="fa fa-id-card-o"></i></div></button>';
+            $data[] = $sub_array;
+        }
+
+        $results = array(
+            "sEcho" => 1,
+            "iTotalRecords" => count($data),
+            "iTotalDisplayRecords" => count($data),
+            "aaData" => $data
+        );
+        echo json_encode($results);
+        break;
+
+
     /*TODO: MicroServicio para poder mostrar el listado de cursos de un usuario con certificado */
     case "listar_cursos_top10":
         $datos = $usuario->get_cursos_x_usuario_top10($_POST["usu_id"]);
