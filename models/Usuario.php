@@ -145,6 +145,7 @@
                 tm_curso.cur_descrip,
                 tm_curso.cur_fechini,
                 tm_curso.cur_fechfin,
+                tm_curso.total_horas,  -- Agrega el campo total_horas
                 tm_usuario.usu_id,
                 tm_usuario.usu_nom,
                 tm_usuario.usu_apep,
@@ -165,6 +166,7 @@
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
+             
 
         /*TODO: Cantidad de Cursos por Usuario */
         public function get_total_cursos_x_usuario($usu_id){

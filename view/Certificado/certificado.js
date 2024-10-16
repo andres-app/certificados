@@ -5,12 +5,12 @@ const ctx = canvas.getContext('2d');
 const image = new Image();
 const imageqr = new Image();
 
-$(document).ready(function(){
+$(document).ready(function () {
     var curd_id = getUrlParameter('curd_id');
 
-    $.post("../../controller/usuario.php?op=mostrar_curso_detalle", { curd_id : curd_id }, function (data) {
+    $.post("../../controller/usuario.php?op=mostrar_curso_detalle", { curd_id: curd_id }, function (data) {
         data = JSON.parse(data);
-        
+
         // Verifica si total_horas está presente
         console.log(data);
 
@@ -27,22 +27,24 @@ $(document).ready(function(){
         ctx.font = '30px Arial';
         ctx.fillText(data.cur_nom, x, 380);
 
+        // Agregar horas del curso
+        ctx.font = '15px Arial';
+        ctx.fillText('Total de horas lectivas: ' + data.total_horas + ' horas', x, 450);
+
+
         // Formatear fechas a DD/MM/AAAA
         const fechaInicio = formatearFecha(data.cur_fechini);
         const fechaFin = formatearFecha(data.cur_fechfin);
 
         ctx.font = '15px Arial';
-        ctx.fillText('Desde el: ' + fechaInicio + ' / ' + 'Hasta el: ' + fechaFin, x, 490);
+        ctx.fillText('Desde el: ' + fechaInicio + ' / ' + 'Hasta el: ' + fechaFin, x, 480);
 
-        // Agregar horas del curso
-        ctx.font = '15px Arial';
-        ctx.fillText('Total de horas: ' + data.total_horas, x, 450);
 
         imageqr.src = "../../public/qr/" + curd_id + ".png";
         ctx.drawImage(imageqr, 400, 500, 100, 100);
 
         $('#cur_descrip').html(data.cur_descrip);
-    });    
+    });
 
 });
 
@@ -56,21 +58,21 @@ function formatearFecha(fecha) {
 }
 
 /* Recarga por defecto solo 1 vez */
-window.onload = function() {
-    if(!window.location.hash) {
+window.onload = function () {
+    if (!window.location.hash) {
         window.location = window.location + '#loaded';
         window.location.reload();
     }
 }
 
-$(document).on("click","#btnpng", function(){
+$(document).on("click", "#btnpng", function () {
     let lblpng = document.createElement('a');
     lblpng.download = "Certificado.png";
     lblpng.href = canvas.toDataURL();
     lblpng.click();
 });
 
-$(document).on("click","#btnpdf", function(){
+$(document).on("click", "#btnpdf", function () {
     var imgData = canvas.toDataURL('image/png');
     var doc = new jsPDF('l', 'mm');
     doc.addImage(imgData, 'PNG', 30, 15);
