@@ -92,12 +92,15 @@
             echo json_encode($data);
             break;
 
-        case "generar_qr":
-            require 'phpqrcode/qrlib.php';
-            //Primer Parametro - Text del QR
-            //Segundo Parametro - Ruta donde se guardara el archivo
-            QRcode::png(conectar::ruta()."view/Certificado/index.php?curd_id=".$_POST["curd_id"],"../public/qr/".$_POST["curd_id"].".png",'L',32,5);
-            break;
+            case "generar_qr":
+                require 'phpqrcode/qrlib.php';
+                //Genera el QR con la URL dinámica que se adapta al entorno
+                $url_qr = Conectar::ruta() . "view/Certificado/index.php?curd_id=" . $_POST["curd_id"];
+                // Primer Parametro - Text del QR (URL)
+                // Segundo Parametro - Ruta donde se guardará el archivo PNG del QR
+                QRcode::png($url_qr, "../public/qr/" . $_POST["curd_id"] . ".png", 'L', 32, 5);
+                break;
+            
 
         case "update_imagen_curso":
             $curso->update_imagen_curso($_POST["curx_idx"],$_POST["cur_img"]);
