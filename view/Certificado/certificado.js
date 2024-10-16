@@ -14,38 +14,41 @@ $(document).ready(function () {
         // Verifica si total_horas está presente
         console.log(data);
 
-        /* Luego de verificar, continúa con el código de generación del certificado */
-        image.src = data.cur_img;
-        ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+        // Solo dibujar la imagen de fondo después de que esté cargada
+        image.onload = function () {
+            ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
 
-        ctx.font = '40px Arial';
-        ctx.textAlign = "center";
-        ctx.textBaseline = 'middle';
-        var x = canvas.width / 2;
-        ctx.fillText(data.usu_nom + ' ' + data.usu_apep + ' ' + data.usu_apem, x, 270);
+            // Ahora dibujar el resto del contenido del certificado
+            ctx.font = '40px Arial';
+            ctx.textAlign = "center";
+            ctx.textBaseline = 'middle';
+            var x = canvas.width / 2;
+            ctx.fillText(data.usu_nom + ' ' + data.usu_apep + ' ' + data.usu_apem, x, 270);
 
-        ctx.font = '30px Arial';
-        ctx.fillText(data.cur_nom, x, 380);
+            ctx.font = '30px Arial';
+            ctx.fillText(data.cur_nom, x, 380);
 
-        // Agregar horas del curso
-        ctx.font = '15px Arial';
-        ctx.fillText('Total de horas lectivas: ' + data.total_horas + ' horas', x, 450);
+            // Agregar horas del curso
+            ctx.font = '15px Arial';
+            ctx.fillText('Total de horas lectivas: ' + data.total_horas + ' horas', x, 450);
 
+            // Formatear fechas a DD/MM/AAAA
+            const fechaInicio = formatearFecha(data.cur_fechini);
+            const fechaFin = formatearFecha(data.cur_fechfin);
 
-        // Formatear fechas a DD/MM/AAAA
-        const fechaInicio = formatearFecha(data.cur_fechini);
-        const fechaFin = formatearFecha(data.cur_fechfin);
+            ctx.font = '15px Arial';
+            ctx.fillText('Desde el: ' + fechaInicio + ' / ' + 'Hasta el: ' + fechaFin, x, 480);
 
-        ctx.font = '15px Arial';
-        ctx.fillText('Desde el: ' + fechaInicio + ' / ' + 'Hasta el: ' + fechaFin, x, 480);
+            // Dibujar el código QR después de que esté cargado
+            imageqr.onload = function () {
+                ctx.drawImage(imageqr, 400, 500, 100, 100);
+            };
+            imageqr.src = "../../public/qr/" + curd_id + ".png";
 
-
-        imageqr.src = "../../public/qr/" + curd_id + ".png";
-        ctx.drawImage(imageqr, 400, 500, 100, 100);
-
-        $('#cur_descrip').html(data.cur_descrip);
+            $('#cur_descrip').html(data.cur_descrip);
+        };
+        image.src = data.cur_img; // Asignar el src de la imagen solo después de definir onload
     });
-
 });
 
 /* Función para formatear la fecha en formato DD/MM/AAAA */
@@ -63,7 +66,7 @@ window.onload = function () {
         window.location = window.location + '#loaded';
         window.location.reload();
     }
-}
+};
 
 $(document).on("click", "#btnpng", function () {
     let lblpng = document.createElement('a');
