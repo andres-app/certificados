@@ -94,12 +94,17 @@
 
             case "generar_qr":
                 require 'phpqrcode/qrlib.php';
-                //Genera el QR con la URL dinámica que se adapta al entorno
-                $url_qr = Conectar::ruta() . "view/Certificado/index.php?curd_id=" . $_POST["curd_id"];
-                // Primer Parametro - Text del QR (URL)
-                // Segundo Parametro - Ruta donde se guardará el archivo PNG del QR
-                QRcode::png($url_qr, "../public/qr/" . $_POST["curd_id"] . ".png", 'L', 32, 5);
-                break;
+                
+                // Opción 1: Eliminar el archivo QR si existe (asegurarse de generar uno nuevo siempre)
+                $qr_file = "../public/qr/".$_POST["curd_id"].".png";
+                if (file_exists($qr_file)) {
+                    unlink($qr_file); // Elimina el archivo anterior
+                }
+            
+                // Opción 2: Generar un nuevo QR con la URL dinámica, usando la ruta detectada
+                $qr_url = Conectar::ruta() . "view/Certificado/index.php?curd_id=" . $_POST["curd_id"];
+                QRcode::png($qr_url, $qr_file, 'L', 32, 5); // Genera el nuevo QR con la URL correcta
+                break;         
             
 
         case "update_imagen_curso":
