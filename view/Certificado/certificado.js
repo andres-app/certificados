@@ -51,14 +51,15 @@ $(document).ready(function () {
     });
 });
 
-/* Función para formatear la fecha en formato DD/MM/AAAA */
+/* Función para formatear la fecha en formato DD/MM/AAAA con UTC */
 function formatearFecha(fecha) {
     const dateObj = new Date(fecha);
-    const dia = ('0' + dateObj.getDate()).slice(-2);
-    const mes = ('0' + (dateObj.getMonth() + 1)).slice(-2); // Los meses en JavaScript son de 0-11
-    const anio = dateObj.getFullYear();
+    const dia = ('0' + dateObj.getUTCDate()).slice(-2); // Usamos getUTCDate
+    const mes = ('0' + (dateObj.getUTCMonth() + 1)).slice(-2); // Usamos getUTCMonth
+    const anio = dateObj.getUTCFullYear(); // Usamos getUTCFullYear
     return `${dia}/${mes}/${anio}`;
 }
+
 
 /* Recarga por defecto solo 1 vez */
 window.onload = function () {
